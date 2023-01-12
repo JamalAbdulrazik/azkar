@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:material_design/screens/prayer_time.dart';
+import 'package:material_design/screens/qibla.dart';
+import 'package:material_design/screens/quotes.dart';
+
+import 'azkar.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -26,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     _tabController = TabController(
       initialIndex: 0,
-      length: 3,
+      length: 4,
       vsync: this,
     );
     _tabController!.addListener(() {
@@ -46,19 +51,26 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    final tabs = <String>[
-      'First',
-      'Second',
-      'Third',
+    final tiles = <String>[
+      'موقيت الصلاة'
+      'الاذكار'
+      'القبلة'
+      'فوائد'
+    ];
+    final tabs = <Widget>[
+      PrayTimeScreen(),
+      Azkar(),
+      DirectionOfPrayer(),
+      Quotes(),
     ];
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Title'),
+        title: const Text('الاذكار'),
         bottom: TabBar(
           controller: _tabController,
-          isScrollable: false,
+          isScrollable: true,
           tabs: [
-            for (final tab in tabs) Tab(text: tab),
+            for (final name in tiles) Tab(text: name),
           ],
         ),
       ),
@@ -67,10 +79,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         children: [
           for (final tab in tabs)
             Center(
-              child: Text(tab),
+              child: tab,
             ),
         ],
       ),
     );
   }
 }
+
+
+
+
+
+
